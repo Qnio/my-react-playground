@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import AddItem from "../items/AddItem/AddItem";
 import ViewItems from "../items/view-items/ViewItems";
+import Card from "../shared/card/Card";
 import {Item} from "../../model/item";
 
 import './HomePage.scss';
 import ItemsFilter from "../items/filter/ItemsFilter";
+
 
 const DUMMY_DATA: Item[] = [
     {
@@ -42,7 +44,7 @@ function HomePage() {
     const [items, addItem] = useState<Item[]>(DUMMY_DATA);
     const [year, setYear] = useState<string>('2021');
 
-    const filteredItems = items.filter(item => new Date(item.date).getFullYear().toString() === year );
+    const filteredItems = items.filter(item => new Date(item.date).getFullYear().toString() === year);
 
     const saveItemDataHandler = (enteredItemData: Item) => {
         const itemData = {
@@ -64,12 +66,16 @@ function HomePage() {
     }
 
     return (
-        <div className="container items-box">
-            <AddItem onSaveItemData={saveItemDataHandler}/>
-            <div className="display-items">
+        <div className="container main-content">
+            <Card>
+                <AddItem onSaveItemData={saveItemDataHandler}/>
+            </Card>
+
+            <Card>
                 <ItemsFilter selectedYear={year} onSelectedYear={updateYear}/>
-                <ViewItems items={filteredItems} />
-            </div>
+                <ViewItems items={filteredItems}/>
+            </Card>
+
         </div>
     )
 }

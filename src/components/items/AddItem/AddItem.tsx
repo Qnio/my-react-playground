@@ -8,10 +8,6 @@ const AddItem: React.FC<{ onSaveItemData: (itemData: Item) => void }> = (props) 
     const [itemDesc, setItemDesc] = useState<string>('');
     const [itemPrice, setItemPrice] = useState<string>('');
     const [date, setDate] = useState<string>('');
-    // const itemName = useRef<HTMLInputElement>(null);
-    // const itemDesc = useRef<HTMLInputElement>(null);
-    // const itemPrice = useRef<HTMLInputElement>(null);
-    // const date = useRef<HTMLInputElement>(null);
 
 
     const submitFormHandler = (event: React.FormEvent) => {
@@ -27,6 +23,7 @@ const AddItem: React.FC<{ onSaveItemData: (itemData: Item) => void }> = (props) 
 
         props.onSaveItemData(itemData);
 
+        //clearing the form
         setItemName('');
         setItemDesc('');
         setItemPrice('');
@@ -52,7 +49,7 @@ const AddItem: React.FC<{ onSaveItemData: (itemData: Item) => void }> = (props) 
 
     return (
 
-        <div className="col-6">
+        <div>
             <h1>Add Item</h1>
             <hr/>
             <form onSubmit={submitFormHandler}>
@@ -89,8 +86,8 @@ const AddItem: React.FC<{ onSaveItemData: (itemData: Item) => void }> = (props) 
                     <label htmlFor="date">Date:</label>
                     <input className="form-control"
                            type="date"
-                           value={date}
                            min="2019-01-01"
+                           value={date}
                            onChange={dateChangeHandler}
 
                     />
