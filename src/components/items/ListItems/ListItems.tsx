@@ -4,12 +4,13 @@ import {Item} from "../../../model/item";
 
 const ListItems: React.FC<{ item: Item }> = (props) => {
     return (
-        <li>
-            <h5>{props.item.itemName}</h5>
-            <p>{props.item.itemDesc}</p>
-            <p>{props.item.itemPrice}</p>
-            <p>{props.item.date}</p>
-        </li>
+        <tr>
+            <td>{props.item.id}</td>
+            <td>{props.item.itemName}</td>
+            <td>{props.item.itemDesc}</td>
+            <td>{props.item.itemPrice}</td>
+            <td>{props.item.date}</td>
+        </tr>
     )
 }
 

@@ -4,8 +4,11 @@ import ViewItems from "../items/view-items/ViewItems";
 import Card from "../shared/card/Card";
 import {Item} from "../../model/item";
 
+import {Button, Container} from "react-bootstrap";
+
 import './HomePage.scss';
 import ItemsFilter from "../items/filter/ItemsFilter";
+import ModalWrapper from "../shared/modal/ModalWrapper";
 
 
 const DUMMY_DATA: Item[] = [
@@ -43,6 +46,9 @@ function HomePage() {
 
     const [items, addItem] = useState<Item[]>(DUMMY_DATA);
     const [year, setYear] = useState<string>('2021');
+    const [show, setShow] = useState(false);
+
+    const handleShow = () => setShow(true);
 
     const filteredItems = items.filter(item => new Date(item.date).getFullYear().toString() === year);
 
@@ -65,18 +71,27 @@ function HomePage() {
 
     }
 
+    const updateModal = () => {
+        setShow(false)
+    }
+
     return (
-        <div className="container main-content">
-            <Card>
-                <AddItem onSaveItemData={saveItemDataHandler}/>
-            </Card>
+        <Container className="main-content">
+            <ModalWrapper show={show} onCloseModal={updateModal}>
+                <Card>
+                    <AddItem onSaveItemData={saveItemDataHandler}/>
+                </Card>
+            </ModalWrapper>
 
             <Card>
-                <ItemsFilter selectedYear={year} onSelectedYear={updateYear}/>
+                <div className='filter-items'>
+                    <ItemsFilter selectedYear={year} onSelectedYear={updateYear}/>
+                    <Button variant='dark' type='button' onClick={handleShow}>+ Add</Button>
+                </div>
                 <ViewItems items={filteredItems}/>
             </Card>
 
-        </div>
+        </Container>
     )
 }
 
